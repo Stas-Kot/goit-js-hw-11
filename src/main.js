@@ -20,9 +20,9 @@ function handleSubmit(e) {
   showLoader();
   clearGallery();
   getImagesByQuery(query)
-    .then(({ data }) => {
+    .then(({ data: { hits } }) => {
       hideLoader();
-      if (data.hits.length === 0) {
+      if (hits.length === 0) {
         iziToast.error({
           message:
             'Sorry, there are no images matching your search query. Please try again!',
@@ -32,7 +32,7 @@ function handleSubmit(e) {
           transitionIn: 'fadeInUp',
         });
       }
-      createGallery(data.hits);
+      createGallery(hits);
     })
     .catch(error => console.log(error));
   e.target.reset();

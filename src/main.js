@@ -21,7 +21,6 @@ function handleSubmit(e) {
   clearGallery();
   getImagesByQuery(query)
     .then(({ data: { hits } }) => {
-      hideLoader();
       if (hits.length === 0) {
         iziToast.error({
           message:
@@ -34,6 +33,7 @@ function handleSubmit(e) {
       }
       createGallery(hits);
     })
-    .catch(error => console.log(error));
+    .catch(error => console.log(error))
+    .finally(() => hideLoader());
   e.target.reset();
 }
